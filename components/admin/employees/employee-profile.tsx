@@ -61,6 +61,7 @@ export function EmployeeProfileView({ employeeId }: { employeeId: string }) {
   const [employee, setEmployee] = useState<Employee>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [open, setOpen] = useState<boolean>(false);
 
   useEffect(() => {
     async function loadEmployeeData() {
@@ -114,6 +115,7 @@ export function EmployeeProfileView({ employeeId }: { employeeId: string }) {
     }
 
     deactivateUser();
+    setOpen(false)
   };
 
   const handleActivateEmployee = () => {
@@ -134,6 +136,7 @@ export function EmployeeProfileView({ employeeId }: { employeeId: string }) {
     }
 
     activateUser();
+    setOpen(false)
   };
 
   const handleSendEmail = () => {
@@ -230,7 +233,7 @@ export function EmployeeProfileView({ employeeId }: { employeeId: string }) {
                 </Link>
               </Button>
 
-              <DropdownMenu>
+              <DropdownMenu open={open} onOpenChange={() => setOpen(!open)}>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" size="sm" className="h-9">
                     <MoreHorizontal className="h-4 w-4" />
